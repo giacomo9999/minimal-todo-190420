@@ -4,6 +4,8 @@ import "./App.css";
 import Todo from "./Todo.js";
 
 class App extends Component {
+  state = { show: false };
+  
   render() {
     return (
       <div className="App">
