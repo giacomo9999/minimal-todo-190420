@@ -27,10 +27,13 @@ class Todo extends Component {
       ]
     });
 
+    console.log("onSubmitHandle...Updated state:", this.state);
+
     e.target.item.value = "";
   };
 
   onDeleteHandle() {
+    console.log("onDeleteHandle...Arguments:", arguments);
     let id = arguments[0];
 
     this.setState({
@@ -43,11 +46,14 @@ class Todo extends Component {
   }
 
   onEditHandle(e) {
+    console.log("onEditHandle...Arguments:", arguments[0], arguments[1]);
+    console.log("onEditHandle...Old State:", this.state);
     this.setState({
       edit: true,
       id: arguments[0],
       title: arguments[1]
     });
+    console.log("onEditHandle...new title?", this.state.title);
   }
 
   onCompleteHandle() {
@@ -68,7 +74,7 @@ class Todo extends Component {
     this.setState({
       mockData: this.state.mockData.map(item => {
         if (item.id === this.state.id) {
-          item["title"] = e.target.updatedItem.value;
+          item.title = e.target.updatedItem.value;
           return item;
         }
         return item;
@@ -78,6 +84,7 @@ class Todo extends Component {
   }
 
   renderEditForm() {
+    console.log("renderEditForm says the state is:", this.state);
     if (this.state.edit) {
       return (
         <form onSubmit={this.onUpdateHandle.bind(this)}>
@@ -87,19 +94,20 @@ class Todo extends Component {
             className="item"
             defaultValue={this.state.title}
           />
-          <button className="update-add-item">Update</button>
+          <button className="update-add-item">Update Item</button>
         </form>
       );
     }
   }
 
   render() {
+    console.log(this.state);
     return (
       <div>
-        <h1>Todo Component here!</h1>
+        <h3>Todo Component</h3>
         <form onSubmit={this.onSubmitHandle.bind(this)}>
           <input type="text" name="item" className="item" />
-          <button className="btn-add-item">Add</button>
+          <button className="btn-add-item">Add New Item</button>
           {this.renderEditForm()}
         </form>
         <ul>
@@ -107,14 +115,14 @@ class Todo extends Component {
             <li key={item.id}>
               {item.title}
               <button onClick={this.onDeleteHandle.bind(this, item.id)}>
-                Delete
+                Delete-
               </button>
               <button onClick={this.onEditHandle.bind(this, item.id)}>
-                Edit
+                Edit-
               </button>
-              <button onClick={this.onCompleteHandle.bind(this, item.id)}>
+              {/* <button onClick={this.onCompleteHandle.bind(this, item.id)}>
                 Complete
-              </button>
+              </button> */}
             </li>
           ))}
         </ul>
