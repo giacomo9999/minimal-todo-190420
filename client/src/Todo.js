@@ -63,6 +63,20 @@ class Todo extends Component {
     });
   }
 
+  onUpdateHandle(e) {
+    e.preventDefault();
+    this.setState({
+      mockData: this.state.mockData.map(item => {
+        if (item.id === this.state.id) {
+          item["title"] = e.target.updatedItem.value;
+          return item;
+        }
+        return item;
+      })
+    });
+    this.setState({ edit: false });
+  }
+
   renderEditForm() {
     if (this.state.edit) {
       return (
